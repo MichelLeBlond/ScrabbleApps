@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+<script  type='text/javascript' src="/js/jquery.min.js"></script>
+<script  type='text/javascript' src="/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/w3.css">
+<script  type='text/javascript' src="/js/angular1.4.8.min.js"></script>
+<script  type='text/javascript' src="/js/xml2json.js"></script>
+	</head>
+<body>
+ 
+
+<div ng-app="myApp" ng-controller="customersCtrl" class="container-fluid"> 
+<div class="w3-card-2 w3-margin w3-light-grey" style="max-width:400px;">
+<form ng-submit="runApp">
+<button  ng-click="generateletters()" class="btn btn-primary">Generate Letters</button><span>  Word Size</span>
+<button  ng-click="newdata()" class="btn btn-primary">Run</button>
+<br>
+ <input type="text" ng-model="Letters" size="8">
+<select ng-model="selectedOp" ng-options="x for x in op" ></select>
+<select ng-model="selectedSizex" ng-options="x for x in sizex"></select>
+</form>
+<br>
+  <input type="radio" ng-model="radiogroup1" value="inorder">These letters in this order  anywhere in word<br>
+  <input type="radio" ng-model="radiogroup1" value="startswith">Word starts with these letters<br>
+  <input type="radio" ng-model="radiogroup1" value="atleastcount">Word has at least count of each letter and can have more letters<br>
+  <input type="radio" ng-model="radiogroup1" value="exactcount">Word has exact count of each letter and can have more letters<br>
+  <input type="radio" ng-model="radiogroup1" value="countorless">Word has only these letters or is composed of only some of these letters<br>
+  <input type="radio" ng-model="radiogroup1" value="wildcard">Search words with % as wild card  scr%bble returns scrabble and scribble
+</div>
+<div class="w3-card-2 w3-margin" style="max-width:400px;">
+ <header class="w3-container w3-light-grey w3-padding-16">
+    <h3>My Words</h3>
+  </header>
+  <ul class="w3-ul">
+    <li ng-repeat="x in mywords" class="w3-padding-16">{{x}}<span ng-click="removeItem($index)" style="cursor:pointer;" class="w3-right w3-margin-right">�</span></li>
+  </ul>
+  <div class="w3-container w3-light-grey w3-padding-16">
+    <div class="w3-row w3-margin-top">
+      <div class="w3-col s10">
+        <input ng-model="addMe" class="w3-input w3-border w3-padding">
+      </div>
+      <div class="w3-col s2">
+        <button ng-click="addItem()" class="btn btn-primary">Add</button>
+      </div>
+    </div>
+    <p class="w3-padding-left w3-text-red">{{errortext}}</p>
+  </div>
+</div>
+<div class="w3-card-2 w3-margin" style="max-width:400px;">
+ <header class="w3-container w3-light-grey w3-padding-16">
+    <h3>Dictionary Words</h3>
+  </header>
+  <ul class="w3-ul" ng-repeat="x in words">
+    <li  class="w3-padding-16">{{x.word}}</li>
+  </ul>
+  <div class="w3-container w3-light-grey w3-padding-16">
+    <div class="w3-row w3-margin-top">
+   
+    
+    </div>
+    </div>
+	</div>
+<div class="w3-card-2 w3-margin" style="max-width:400px;">
+ <header class="w3-container w3-light-grey w3-padding-16">
+    <h3>Matches</h3>
+  </header>
+  <ul class="w3-ul">
+    <li ng-repeat="x in matches" class="w3-padding-16">{{x}}</li>
+  </ul>
+  <div class="w3-container w3-light-grey w3-padding-16">
+    <div class="w3-row w3-margin-top">
+   
+    
+    </div>
+    </div>
+	</div>
+	
+<div class="w3-card-2 w3-margin" style="max-width:400px;">
+ <header class="w3-container w3-light-grey w3-padding-16">
+    <h3>Missed</h3>
+  </header>
+  <ul class="w3-ul">
+    <li ng-repeat="x in missed" class="w3-padding-16">{{x}}</li>
+  </ul>
+  <div class="w3-container w3-light-grey w3-padding-16">
+    <div class="w3-row w3-margin-top">
+   
+    
+    </div>
+    </div>
+	</div>
+	
+<div class="w3-card-2 w3-margin" style="max-width:400px;">
+ <header class="w3-container w3-light-grey w3-padding-16">
+    <h3>Not in list</h3>
+  </header>
+  <ul class="w3-ul">
+    <li ng-repeat="x in notinlist" class="w3-padding-16">{{x}}</li>
+  </ul>
+  <div class="w3-container w3-light-grey w3-padding-16">
+    <div class="w3-row w3-margin-top">
+   
+    
+    </div>
+    </div>
+	</div>
+	
+	
+	
+</div>
+<script>
+
+var x2js = new X2JS();	
+var app = angular.module('myApp', []);
+app.controller('customersCtrl', function($scope, $http) {
+$scope.sizex = ["1", "2", "3","4","5","6","7"];
+$scope.op = ["=", ">", "<"];
+$scope.selectedOp = "<";
+$scope.selectedSizex = "7"; 
+$scope.Letters ="abcdefg";
+$scope.radiogroup1 ="countorless";
+/***
+$http.get("words.xml")
+ // $http.get("http://104.199.127.172/flex/TheseLettersFirstSQL.php?data=&op==&size=2")
+ .then(function (response) { $scope.words = x2js.xml_str2json(response.data).words.word;}); 
+***/
+    
+    $scope.newdata = function () {
+        
+        var serverroot ="/";
+        var urlstring = "&data="+ $scope.Letters + "&op=" + $scope.selectedOp + "&size=" + $scope.selectedSizex;
+     
+       var url ="";
+       if($scope.radiogroup1 =="inorder"){             
+             url = serverroot +  "?qr=inorder" + urlstring;
+                }
+       else if($scope.radiogroup1 =="startswith"){
+               url = serverroot +  "?qr=startswith" + urlstring;
+       }
+       else if($scope.radiogroup1 =="atleastcount"){
+              url = serverroot +  "?qr=atleastcount" + urlstring;
+      }
+       else if($scope.radiogroup1 =="exactcount"){
+               url = serverroot +  "?qr=exactcount" + urlstring;
+       }
+       else if($scope.radiogroup1 =="countorless"){
+               url = serverroot +  "?qr=countorless" + urlstring;
+       }
+       else if($scope.radiogroup1 =="wildcard"){
+                    var su  =".";
+					var wildstring = $scope.Letters;
+						for (i= 0; i < wildstring.length; i++)
+							{
+					       wildstring = wildstring.replace("%", ".");
+							}
+				url = serverroot +  "?qr=wildcard&data=" + wildstring;
+       }
+       $http.get(url)
+       .then(function (response) {  $scope.words = response.data; /** console.log(response) ***/})
+ .then(function (){   $scope.populateLists();   })
+ ;
+       
+       
+    
+    } 
+    $scope.generateletters = function(){
+        var letterstring = "aaaaaaaaabbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooooppqrrrrrrsssttttttuuuuvvwwxyyz";
+   		var newstring ="";
+		var templetterstring = letterstring;
+					for(i =0; i < 7 ; i++){
+						var tempindex = Math.round(Math.random() * (templetterstring.length-1));
+						newstring = newstring  + templetterstring.charAt(tempindex);
+						var fronts = templetterstring.substring(0, tempindex);
+						var tails = templetterstring.substring(tempindex+1 , templetterstring.length);
+						templetterstring = fronts + tails; 
+					}	$scope.Letters = newstring;
+			}
+        
+ 
+     $scope.mywords = [];
+     $scope.matches = [];
+     $scope.missed = [];
+     $scope.notinlist = [];
+    $scope.addItem = function () {
+        $scope.errortext = "";
+        if (!$scope.addMe) {return;}
+        if ($scope.mywords.indexOf($scope.addMe) == -1) {
+            $scope.mywords.push($scope.addMe);
+        } else {
+            $scope.errortext = "The item is already in your word list.";
+        }
+    }
+    $scope.removeItem = function (x) {
+        $scope.errortext = "";    
+        $scope.mywords.splice(x, 1);
+    } 
+    $scope.populateLists = function(){ 
+  		$scope.missed.splice(0,$scope.missed.length);
+		$scope.matches.splice(0,$scope.matches.length);
+		$scope.notinlist.splice(0,$scope.notinlist.length);
+	 for (i = 0; i < $scope.words.length; i++) {
+       var x = $scope.mywords.indexOf($scope.words[i]);
+       if(x!=-1){
+           $scope.matches.push($scope.words[i].word);   
+       }
+       else {
+          $scope.missed.push($scope.words[i].word);    
+       }
+   		} 
+	  		
+	
+   				/*** find my words not in words list ***/
+		for (i = 0; i < $scope.mywords.length; i++) {
+      var x = $scope.matches.indexOf($scope.mywords[i]);
+          if(x==-1){
+                 $scope.notinlist.push($scope.mywords[i]);     
+          }
+       
+		}  
+   		   
+    }    
+  
+});
+
+
+
+	
+
+</script>
+
+
+</body>
+</html>
