@@ -20,11 +20,11 @@ This app runs from /angular.htm
 
 -- nodescrabbletrainer has a version of the training app that runs with the database, angular and node rather than php and angular.
 
-#Docker 
+# Docker 
   -- The tomcatscrabble app will run on its own.
   -- nodescrabbletrianer and --scrabble-php-app require scrabbledb to be up. It may be neccesary to do a local build if the image is no longer on docker.
 
-#TODO
+# TODO
  -- Because Docker will be automatically retiring images copying images over to GCP containers seems like the next logical action.
   
 
