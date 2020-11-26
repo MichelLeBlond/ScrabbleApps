@@ -5,6 +5,6 @@ This project contains a Scrabble game built with an adobe flex front end and a j
 The refactored source code is included.
 -- ScrabbleServletworkspacelocaleclipse is an eclipse project that  generates the war file that will run on a tomcat instance
 
-![TomcatScrabble]https://github.com/MichelLeBlond/ScrabbleApps/blob/main/images/tomcatscrabble.jpg
+![TomcatScrabble](https://github.com/MichelLeBlond/ScrabbleApps/blob/main/images/tomcatscrabble.jpg?raw=true)
 
 
