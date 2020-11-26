@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple custom MXML TitleWindow component.
+     The TitleWindowApp application displays this component. 
+     You cannot run it independently. -->
+     
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" 
+    title="Blank Tile Value" x="168" y="86">
+
+    <mx:Script>
+        <![CDATA[       
+            import mx.managers.PopUpManager;
+            import mx.controls.Text;
+            import mx.collections.ArrayCollection;
+            import mx.controls.Alert;
+           
+            // A reference to the TextInput control in which to put the result.
+            public var loginName:String;
+           [Bindable]
+			public var letters:ArrayCollection = new ArrayCollection(["A", "B", "C", "D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]);
+			
+            // Event handler for the OK button.
+            private function returnName():void {
+               loginName = userName.text; 
+                PopUpManager.removePopUp(this);
+            }
+            private function setLetter():void {
+            	userName.text = applist.selectedItem.toString();
+            }
+        ]]>
+    </mx:Script>
+
+    <mx:HBox>
+        <mx:Text id ="instruct" text="Enter Name: "/>
+        <mx:Label id="userName"  />
+    </mx:HBox>
+
+    <mx:HBox>
+        <mx:Button label="OK" click="returnName();"/>
+       
+    </mx:HBox>
+    <mx:List id="applist" width="76" height="78" dataProvider="{letters}" itemClick="setLetter()" />
+    
+   
+
+</mx:TitleWindow> 

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" xmlns:MyComps="mycomponents.*"  initialize="init()"
+	    backgroundColor="#FFFFFF" backgroundGradientAlphas="[0.6, 1.0]" backgroundGradientColors="[#D1FBF8, #1AB6C4]">
+<mx:Script>
+	<![CDATA[
+		import mx.events.DragEvent;
+		import mx.controls.Alert;
+		import mycomponents.ScrabbleController;
+		import mx.collections.ArrayCollection;
+		import mx.managers.PopUpManager;
+		import mycomponents.BlankTileProxyWindow;
+        import mx.containers.TitleWindow;
+        import flash.geom.Point;
+		private var controller:ScrabbleController = new ScrabbleController;
+		[Bindable] // words returned by http service calls
+		public var wordlist:ArrayCollection = new ArrayCollection;
+		[Bindable]   // words that can be played on board with , start pos , orientation , word , value
+		public  var goodWords:ArrayCollection = new ArrayCollection;
+		public function init():void {
+			rack.addEventListener(DragEvent.DRAG_DROP, gameBoard.dropOnAnother);
+			controller.setWordList(wordlist);
+			controller.setRack(rack);
+			controller.setBoard(gameBoard);
+			controller.setGoodWords(goodWords);
+			controller.setDisplayItems(compscore, playscore);
+			
+			//controller.Start(2);
+	  
+		}
+		
+			]]>
+</mx:Script>
+   
+    <!--<mx:ArrayCollection id="wordlist" source="{controller.getHTPwordlist()}">
+    	
+    </mx:ArrayCollection> -->
+    <mx:HBox>
+    	
+    <mx:VBox>
+    <mx:Button label="Start" click="controller.Start(2);"/>
+	<mx:Button label="Ok Play word" click="controller.testScrabbleRules();"/>
+	<mx:HBox width="100%">
+	<mx:Label  text="Computer Score" fontFamily="Arial" color="#55062B" fontSize="15"/>
+		<mx:Text id="compscore"  color="#176412" fontSize="12" fontFamily="Arial"/>
+    <mx:Label text="Player Score" color="#55062B" fontSize="15" fontFamily="Arial"/>
+		<mx:Text id ="playscore"  fontFamily="Arial" fontSize="15" color="#176412"/>
+	</mx:HBox>
+	<!-- <mx:Button label="Reset preturnstring" click="controller.setPreturnString();"/> testing purposes -->
+	
+		<MyComps:Rack id="rack">
+		</MyComps:Rack>
+    </mx:VBox>
+	<MyComps:scrabbleBoard id="gameBoard"/>
+	</mx:HBox>
+	<!-- <mx:DataGrid id="appgrid"  height="200" dataProvider="{gameBoard.boardArray}"></mx:DataGrid>
+	<mx:DataGrid id="mwords"    dataProvider="{wordlist}"   width="450"> 
+		
+	</mx:DataGrid>
+	<mx:DataGrid id="gw"  height="200" dataProvider="{goodWords}"></mx:DataGrid> -->
+</mx:Application>
+

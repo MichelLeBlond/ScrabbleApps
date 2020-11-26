@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" creationComplete="init()" backgroundGradientAlphas="[1.0, 1.0]" backgroundGradientColors="[#08636B, #0BAC40]">
+	<!-- Desired behaviors
+	input for letters
+	radio buttons to select for letters in word , letters in word in order, starts with
+	returns matchs
+
+	once done enhance to have ability to pick own list to match up.
+
+	-->
+	<mx:Script>
+		<![CDATA[
+			import mx.events.CollectionEvent;
+			import mx.printing.*;
+           	import mx.rpc.events.ResultEvent;
+			import mx.controls.Label;
+		import mx.controls.Alert;
+		import mx.collections.ArrayCollection;
+		import mx.collections.ListCollectionView;
+		//private var webroot:String = "localhost/flex";
+		//private var webroot:String = "localhost";
+		private var webroota:String = ExternalInterface.call("window.location.href.toString");
+		private var splitURL:Array = webroota.split('/');
+		private var webroot:String = splitURL[2] +"/";
+		private var newurl:String;
+		public var letterstring:String ="aaaaaaaaabbccddddeeeeeeeeeeeeffggghhiiiiiiiiijkllllmmnnnnnnooooooooppqrrrrrr" +
+				"sssttttttuuuuvvwwxyyz";
+		[Bindable]
+		private var mylist:Array;
+		[Bindable]
+		private var wordlist:ArrayCollection;
+		[Bindable]
+		private var wordlist2:ArrayCollection;
+		[Bindable]
+		private var matches:ArrayCollection = new ArrayCollection;
+
+		[Bindable]
+		private var missed:ArrayCollection = new ArrayCollection;
+
+		[Bindable]
+		private var notindic:ArrayCollection = new ArrayCollection;
+		// Create a PrintJob instance.
+            private function doPrint():void {
+                // Create an instance of the FlexPrintJob class.
+                var printJob:FlexPrintJob = new FlexPrintJob();
+
+                // Start the print job.
+                if (printJob.start() != true) return;
+
+                // Add the object to print. Do not scale it.
+                printJob.addObject(mwords, FlexPrintJobScaleType.SHOW_ALL);
+
+                // Send the job to the printer.
+                printJob.send();
+            }
+
+
+
+			public function init():void{
+				//feedRequest.send();
+				mylist = new Array;
+				wordlist = new ArrayCollection;
+
+				mylist.push("=");
+				mylist.push(">");
+				mylist.push("<");
+				op.selectedIndex =0;
+			 //  myaddedwords.addEventListener(CollectionEvent.COLLECTION_CHANGE, addedwordsl);
+			}
+
+			private function addedwordsl(event:CollectionEvent):void{
+				Alert.show(event.toString());
+
+			}
+		private	function addmyword(): void{
+				var obj:Object = new Object;
+				if(myaddedwords.length !=0){
+				if(myaddedwords.getItemAt(myaddedwords.length -1).value.toString()!=""){
+
+				obj.value ="";
+				myaddedwords.addItem(obj); }}
+				else {
+				obj.value ="";
+				myaddedwords.addItem(obj); }
+
+			}
+
+		private	function testme():void {
+
+				try {
+			var testarraylist:ArrayCollection = feedRequest.lastResult.words.word;
+		            //wordlist2 = feedRequest.lastResult.words.word;
+
+
+
+	           // loop through  testarraylist nest myaddedwords to find matches and notindic
+
+	             for(var j:int = 0; j < testarraylist.length; j++){
+	             		var containsw:Boolean = false;
+	             	 for(var i:int = 0; i < myaddedwords.length; i++){
+
+	                  	if(myaddedwords.getItemAt(i).value.toString() == testarraylist.getItemAt(j).value.toString()){
+	               		matches.addItem(myaddedwords.getItemAt(i).value.toString());
+	               		containsw = true
+	               	}
+
+	               }
+
+	               if(containsw == false) {
+	               		missed.addItem(testarraylist.getItemAt(j).value.toString());
+	               	}
+
+
+	             }
+
+
+
+
+	           for(var k:int = 0; k < myaddedwords.length; k++){
+	            containsw = false;
+	     	            for(var l:int = 0; l < matches.length; l++){
+	                  	if(myaddedwords.getItemAt(k).value.toString() == matches.getItemAt(l).toString()){
+
+	               		containsw = true;
+	               	}
+
+	               }
+
+	               	if(containsw == false) {
+	               		notindic.addItem(myaddedwords.getItemAt(k).value.toString());
+	               	}
+
+
+
+	           }
+
+	   		}
+	   		// catchs cases where  one or no record is returned.
+				catch(err:Error){
+					try {
+				  for(var m:int = 0; m < myaddedwords.length; m++){
+				  	if(myaddedwords.getItemAt(m).value.toString() == feedRequest.lastResult.words.word.value.toString()){
+				  		matches.addItem(myaddedwords.getItemAt(m).value.toString());
+				  	}
+				  		else {
+				  		notindic.addItem(myaddedwords.getItemAt(m).value.toString());
+				  	}
+				  }
+				  if(matches.length==0){
+				  	missed.addItem(feedRequest.lastResult.words.word.value.toString());
+				  }
+
+				 }
+				 catch(err:Error){
+
+				 }
+				}
+
+
+			}
+			public function hide():void{
+				op.enabled = false;
+				//op.setVisible(false)
+				wordsize.enabled= false;
+
+
+			}
+			public function unhide():void{
+					op.enabled = true;
+				wordsize.enabled= true;
+
+			}
+
+			public function ran():void {
+			matches.removeAll();
+			missed.removeAll();
+			notindic.removeAll();
+
+				feedRequest.addEventListener(ResultEvent.RESULT,listenf);
+				var ops:Object = op.selectedItem;
+				var radopt:Object = radiogroup1.selectedValue;
+
+				var letters:String = qletters.text;
+				var sizex:int = wordsize.value;
+				var sizearray:ArrayCollection;
+				sizearray = new ArrayCollection;
+				//Alert.show(ops + "\n" + radopt);
+				sizearray.removeAll();
+
+				if(radiogroup1.selection.id =="inorder")
+				{
+					newurl = "http://"+  webroot + "/TheseLettersThisOrderSQL.php" + "?data="
+					 + qletters.text.toString() + "&op=" + ops + "&size=" + sizex;
+					feedRequest.url = newurl;
+					feedRequest.send();
+
+
+
+				}
+
+					else if(radiogroup1.selection.id =="startswith")
+				{
+					//var newurl:String = "http://localhost/Flexapps/TheseLettersFirst.php" + "?data="
+					newurl= "http://" + webroot + "/TheseLettersFirstSQL.php" + "?data="
+					 + qletters.text.toString() + "&op=" + ops + "&size=" + sizex;
+					feedRequest.url = newurl;
+					feedRequest.send();
+
+
+
+				}
+					else if(radiogroup1.selection.id =="atleastcount")
+				{
+					//var newurl:String = "http://localhost/Flexapps/TheseLettersFirst.php" + "?data="
+					newurl = "http://"+ webroot + "/AtLeastCountSQL.php" + "?data="
+					 + qletters.text.toString() + "&op=" + ops + "&size=" + sizex;
+					feedRequest.url = newurl;
+					feedRequest.send();
+
+
+
+				}
+					else if(radiogroup1.selection.id =="exactcount")
+				{
+					//var newurl:String = "http://localhost/Flexapps/TheseLettersFirst.php" + "?data="
+					newurl= "http://" + webroot + "/ExactCountSQL.php" + "?data="
+					 + qletters.text.toString() + "&op=" + ops + "&size=" + sizex;
+					feedRequest.url = newurl;
+					feedRequest.send();
+
+
+
+				}
+
+					else if(radiogroup1.selection.id =="countorless")
+				{
+					//var newurl:String = "http://localhost/Flexapps/TheseLettersFirst.php" + "?data="
+					newurl= "http://" + webroot + "/CountOrLessSQL.php" + "?data="
+					 + qletters.text.toString();
+					feedRequest.url = newurl;
+					feedRequest.send();
+
+
+
+				}
+
+					else if(radiogroup1.selection.id =="wildcard")
+				{
+					var su:String =".";
+					var wildstring:String = qletters.text.toString();
+						for (var i:int = 0; i < wildstring.length; i++)
+							{
+					       wildstring = wildstring.replace("%", ".");
+											}
+
+
+
+
+					//var newurl:String = "http://localhost/Flexapps/TheseLettersFirst.php" + "?data="
+					var newurl:String = "http://" + webroot + "/WildCardSQL.php" + "?data="
+					 +  wildstring;
+					feedRequest.url = newurl;
+					feedRequest.send();
+
+
+
+				}
+
+				else if(radiogroup1.selection.id =="exactlength")
+				{
+
+					 newurl= "http://" + webroot + "/ExactLengthSQL.php" + "?op=" + ops + "&size=" + sizex;
+					feedRequest.url = newurl;
+					feedRequest.send();
+
+
+
+				}
+
+
+
+
+			}
+			private function listenf(evt:ResultEvent):void{
+			    testme();
+			}
+
+			private function generateLetters():void {
+				matches.removeAll();
+				missed.removeAll();
+				notindic.removeAll();
+				myaddedwords.removeAll();
+				feedRequest.clearResult(true);
+
+					var sizex:int = wordsize.value;
+					var newstring:String="";
+					for(var i:int =0; i < sizex ; i++){
+						newstring = newstring + letterstring.charAt(Math.round(Math.random() * letterstring.length));
+					}
+					qletters.text = newstring;
+					addmyword();
+			}
+			private function wickitionary(): void{
+				var wickiword:String = mwords.selectedItem.value.toString();
+				var wickiurl:String = "http://en.wiktionary.org/wiki/" + wickiword;
+				navigateToURL(new URLRequest(wickiurl));
+			}
+		]]>
+	</mx:Script>
+	<!--  <mx:XML id="twl3"  >
+
+	</mx:XML> -->
+  <mx:HTTPService
+    id="feedRequest"
+
+   />
+	<mx:Panel x="44" y="10" width="669" height="501" layout="absolute" backgroundColor="#B6EBC8">
+
+		<mx:DataGrid id="mwords"  itemClick="wickitionary();"   x="44" y="76" dataProvider="{feedRequest.lastResult.words.word}" width="136"> <!--dataProvider="{twl.word}" -->
+			<mx:columns>
+				<mx:DataGridColumn   headerText="word" dataField="value"/>
+
+			</mx:columns>
+		</mx:DataGrid>
+		<mx:NumericStepper  x="262" y="42" minimum="2" maximum="15" stepSize="1" enabled="true" id="wordsize"/>
+		<mx:RadioButtonGroup id="radiogroup1" />
+		<mx:RadioButton click="unhide();" selected="true" id ="startswith" x="200" y="108" groupName="radiogroup1" label="Word starts with these letters"/>
+		<mx:RadioButton click="unhide();" id="atleastcount" x="400" y="148" groupName="radiogroup1"/>
+		<mx:RadioButton  click="unhide();" id="inorder" x="400" y="104" groupName="radiogroup1" height="29" width="37"/>
+	    <mx:ComboBox    id="op"  x="200" y="41" width="58" height="24" dataProvider="{mylist}"></mx:ComboBox>
+		<mx:TextInput x="32" y="42" id="qletters"/>
+		<mx:Label x="190" y="15" text="Word Size"  width="112"/>
+		<mx:Button x="200" y="77" label="Run " width="98" id="rbutton" click="ran()"/>
+		<mx:Text x="422" y="110" text="These letters in this order  anywhere in word" width="152" />
+		<mx:Text x="422" y="148" text="Word has at least count of each letter and can have more letters" width="152" height="49"/>
+		<mx:RadioButton x="400" y="200" groupName="radiogroup1" id="exactcount" click="unhide();"/>
+		<mx:Text x="422" y="200" text="Word has exact count of each letter and can have more letters" width="163"/>
+		<mx:RadioButton x="200" y="138" groupName="radiogroup1" id="countorless"    click ="hide();"/>
+		<mx:Text x="222" y="138" text="Word has only these letters or is composed of only some of these letters" width="163" height="60"/>
+		<!--<mx:Button x="10" y="418" label="Add a word" id="testbutton" /> -->
+		<mx:DataGrid  id ="mywords" x="44" y="268" editable="true"    itemFocusOut="addmyword();"      width="131">
+
+      <mx:ArrayCollection id="myaddedwords">
+         <mx:Object value ="" />
+              </mx:ArrayCollection>
+      <mx:columns>
+         <mx:DataGridColumn   headerText="My Words" dataField="value" editable="true"  />
+      </mx:columns>
+   </mx:DataGrid>
+		 <mx:Button x="108" y="418" label="Clear words"
+		 	 click='myaddedwords.removeAll();matches.removeAll();
+				missed.removeAll();
+				notindic.removeAll();
+				feedRequest.clearResult(true);addmyword();'/>
+		<mx:List x="200" y="290" width="131" height="120" dataProvider="{matches}"></mx:List>
+		<mx:List x="356" y="290" width="131" height="120" dataProvider="{missed}"></mx:List>
+		<mx:List x="508" y="290" width="131" height="120" dataProvider="{notindic}"></mx:List>
+		<mx:Label x="200" y="264" text="Matches" width="131"/>
+		<mx:Label x="379" y="264" text="Missed" width="97"/>
+		<mx:Label x="508" y="264" text="Not in list" width="106"/>
+		<mx:Button x="55" y="13"   click="generateLetters()" label="Generate letters"/>
+		<mx:RadioButton x="200" y="186" id="wildcard" groupName="radiogroup1"/>
+		<mx:Text x="222" y="186" text="Search words with % as wild card  scr%bble returns scrabble and scribble " width="164"/>
+		<!-- <mx:LinkButton x="70" y="226" label="Print word list" click="doPrint();" enabled="true" id="prints" color="#143BE0"/> -->
+
+
+
+
+
+	</mx:Panel>
+</mx:Application>

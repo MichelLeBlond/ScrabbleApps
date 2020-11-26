@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="49"
+   name=""
+   committed-date="2008-07-05T17:38:06.676250Z"
+   url="https://scrabbledict.svn.sourceforge.net/svnroot/scrabbledict/trunk/ScrabbleDictionary/src/zen"
+   last-author="flszen"
+   kind="dir"
+   uuid="1187bcd6-1343-0410-bac2-c26dee253c89"
+   repos="https://scrabbledict.svn.sourceforge.net/svnroot/scrabbledict"
+   prop-time="2008-08-19T01:19:48.000000Z"
+   revision="49"/>
+<entry
+   name="scrabbledict"
+   kind="dir"/>
+</wc-entries>

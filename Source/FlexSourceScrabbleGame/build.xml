@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<project name="Scrabbletor" default="main" basedir=".">
+	<property environment="env"/>
+	<property file="build.properties" />
+
+	<!-- do not change next 2 lines, it adds flex tasks to ant -->
+	<property name="FLEXTASKS" value="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
+	<taskdef resource="flexTasks.tasks" classpath="${FLEXTASKS}"/>
+
+	<property name="DEPLOY.dir" value="${basedir}/bin"/>
+<target name="main" depends="clean, compile"/>
+<target name="clean">
+	<delete dir="${DEPLOY.dir}"/>
+	<mkdir dir="${DEPLOY.dir}"/>
+</target>
+<target name="compile">
+	<mxmlc file="${basedir}/src/TomcatScrabble.mxml" output="${DEPLOY.dir}/TomcatScrabble.swf" failonerror="true" maxmemory="1024m">
+		<source-path path-element="${basedir}/src"/>
+	</mxmlc>
+</target>
+
+</project>

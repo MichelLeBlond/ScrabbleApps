@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="41" height="41" dragEnter="this.addEventListener(DragEvent.DRAG_ENTER,this.parentApplication.dragEnterHandler);"
+	dragExit="this.addEventListener(DragEvent.DRAG_EXIT,this.parentApplication.dragExitHandler);"
+		dragDrop="this.addEventListener(DragEvent.DRAG_DROP,this.parentApplication.dragDropHandler);"
+		>
+	<mx:Script>
+		<![CDATA[
+			import mx.events.DragEvent;
+		]]>
+	</mx:Script>
+		
+	
+</mx:Canvas>

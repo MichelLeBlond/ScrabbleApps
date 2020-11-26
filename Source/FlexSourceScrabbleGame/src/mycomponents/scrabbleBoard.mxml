@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="715" height="715" 
+	   dragEnter="thisDragEnter(event)" dragDrop="thisDragDrop(event)" backgroundImage="@Embed('assets/scrabble4.PNG')"
+	    initialize="init()">
+	<mx:Script>
+		<![CDATA[
+		import mx.controls.Alert;
+		import mx.core.DragSource;
+        import mx.events.DragEvent;
+        import mx.managers.DragManager;
+        import mycomponents.DragableImage;
+        import mycomponents.CustomDragManager;
+        import mx.collections.ArrayCollection;
+        import mx.managers.PopUpManager;
+        import mx.containers.TitleWindow;
+        import flash.geom.Point;
+        private var point1:Point = new Point();
+        private var login:BlankTileProxyWindowF;
+        
+        [Bindable]
+		public  var boardArray:ArrayCollection = new ArrayCollection();
+		   
+		    /**
+		    * Needed to hear drop events dispatched by other components
+		    **/ 
+		    
+		    public function dropOnAnother(event:DragEvent):void{
+		    var drag:DragableImage = event.dragInitiator as DragableImage;
+			if(drag.src =="other"){
+				boardArray[drag.pos].value = 0;
+				boardArray[drag.pos].tile = null;
+				
+			}
+		    	
+		    }
+		    
+		   private function init():void {
+				buildArray();
+				 
+			}
+		
+			private function thisDragEnter(event:DragEvent):void{
+				DragManager.acceptDragDrop(scrabbleBoard(event.target));
+					}
+			private function thisDragDrop(event:DragEvent):void{
+		    var wild:Boolean = false;
+			var drag:DragableImage = event.dragInitiator as DragableImage;
+			event.dragInitiator.x = event.currentTarget.mouseX - drag.xOff;
+			event.dragInitiator.y = event.currentTarget.mouseY - drag.yOff;
+		   //updates model in boardArray and locks in tiles when dropped	
+		    var tempX:int = event.currentTarget.mouseX - drag.xOff;
+			var tempY:int = event.currentTarget.mouseY - drag.yOff;
+			var xs:int = Math.round(((tempX -15)/46) +1)
+			var ys:int =  Math.round(((tempY -15)/46) +1)
+		  	tempX  = Math.round(15 + 46 * (xs -1));
+			tempY  = Math.round(14 + 45.85 * (ys -1)); 
+			if(tempX < 17){tempX = 17;} 
+			if(tempY < 16){tempY = 16;}
+			if(tempX > 659){tempX = 659;} 
+			if(tempY > 659) {tempY = 659;}
+			var boardindex:int = xs + (ys -1) *15 -1;
+			event.dragInitiator.x = tempX;
+			event.dragInitiator.y = tempY;
+			var getvalues:BindableImage = BindableImage(event.dragInitiator);
+			var boardMove:Boolean = false;
+			var newOnBoard:Boolean = false;
+			var backToRack:Boolean = false;
+			  if(this != event.dragInitiator.parent){
+				if(boardArray[boardindex].value ==0) {
+			    addChild(event.dragInitiator as DragableImage);
+				newOnBoard = true;	
+				}
+				else {
+				event.dragInitiator.x = getvalues.oldx;
+				event.dragInitiator.y = getvalues.oldy;
+				} 
+			  }
+			  else {
+				 	setChildIndex(BindableImage(event.dragInitiator), numChildren-1);
+				 	if( boardArray[boardindex].value !=0){ 
+				 		event.dragInitiator.x = getvalues.oldx;
+						event.dragInitiator.y = getvalues.oldy;
+					 	}
+				 	else { 
+				 		boardMove = true;
+				 	    }
+				 }
+				 
+				  // code  for wild card
+			  if(getvalues.value ==-1){ 
+			  	 login =BlankTileProxyWindowF(PopUpManager.createPopUp( this, BlankTileProxyWindowF , true));
+				 login.setBoardArray(boardArray);
+				 login.setBindableImage(event.dragInitiator as DragableImage);
+				 login.boardindex = boardindex;
+				 login.instruct.text ="Pick a letter for tile \n at"; // works
+                // Calculate position of TitleWindow in Application's coordinates.
+                // Position it 25 pixels down and to the right of the Button control.
+                point1.x=0;
+                point1.y=0;                
+                login.x=point1.x+25;
+                login.y=point1.y+25;
+                wild = true;
+                 }
+				 
+				 
+				 
+				 
+				if(newOnBoard){
+					boardArray[boardindex].value = getvalues.value;
+					boardArray[boardindex].tile = getvalues.char;
+					getvalues.oldx = tempX;
+					getvalues.oldy = tempY;
+					getvalues.pos = boardindex;
+					getvalues.src = "gameBoard";
+				}
+								
+				if(boardMove) {
+					boardArray[boardindex].value = getvalues.value;
+					boardArray[boardindex].tile = getvalues.char;
+					boardArray[getvalues.pos].value = 0;
+					boardArray[getvalues.pos].tile = null;
+					getvalues.oldx = tempX;
+					getvalues.oldy = tempY;
+					getvalues.pos = boardindex;
+					
+				}
+			
+			}
+			/**
+			 * populates boardArray with data
+			 * */
+			private function buildArray():void {
+				 var  zed:int = 0; //tracking purposes only to add multipliers etc
+				for(var i:int =0; i < 15; i++){
+					for(var j:int =0; j <15; j++){
+				   	var cell:Object = new Object;
+				   cell.zed = zed;
+					cell.row = i;	
+					cell.column = j;
+					cell.value = 0;
+					cell.tile = null;
+					cell.multiplier = 1;
+					cell.type ="word"
+					boardArray.addItem(cell);
+					zed++;
+					}
+				}
+				var tword:String = "0,7,14,105,119,210,217,224";
+				var twarray:Array = tword.split(",");
+				for(var k:int = 0; k< twarray.length; k ++){
+					boardArray[twarray[k]].multiplier =3;
+					}
+				var dword:String = "16,28,32,42,48,56,64,70,112,154,160,168,176,182,192,196,208";
+				var dwarray:Array = dword.split(",");
+				for(var l:int = 0; l< dwarray.length; l ++){
+					boardArray[dwarray[l]].multiplier =2;
+					}
+				var dletter:String = "3,11,36,38,45,52,59,92,96,98,102,108,116,122,126,128,132,165,172,179,186,188,213,221";
+				var dlarray:Array = dletter.split(",");
+				for(var m:int = 0; m< dlarray.length; m ++){
+					boardArray[dlarray[m]].multiplier =2;
+					boardArray[dlarray[m]].type ="letter";
+					}	
+				var tletter:String = "20,24,76,80,84,88,136,140,144,148,200,204";
+				var tlarray:Array = tletter.split(",");
+				for(var n:int = 0; n< tlarray.length; n ++){
+					boardArray[tlarray[n]].multiplier =3;
+					boardArray[tlarray[n]].type ="letter";
+					}	
+				
+			}
+			
+			
+			
+			
+		]]>
+	</mx:Script>
+</mx:Canvas>

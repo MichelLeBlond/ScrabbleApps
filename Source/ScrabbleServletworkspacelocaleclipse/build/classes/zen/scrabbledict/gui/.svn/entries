@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="49"
+   name=""
+   committed-date="2008-07-05T17:38:06.676250Z"
+   url="https://scrabbledict.svn.sourceforge.net/svnroot/scrabbledict/trunk/ScrabbleDictionary/src/zen/scrabbledict/gui"
+   last-author="flszen"
+   kind="dir"
+   uuid="1187bcd6-1343-0410-bac2-c26dee253c89"
+   repos="https://scrabbledict.svn.sourceforge.net/svnroot/scrabbledict"
+   prop-time="2008-08-19T01:19:48.000000Z"
+   revision="49"/>
+<entry
+   committed-rev="30"
+   name="DictionaryFrame.form"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-05-05T02:57:18.821274Z"
+   checksum="33a9357f73cd181005fdf83e2750d427"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:46.000000Z"/>
+<entry
+   committed-rev="49"
+   name="BoardFrame.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-07-05T17:38:06.676250Z"
+   checksum="13671c333482882ed22b5784314a8703"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:46.000000Z"/>
+<entry
+   committed-rev="46"
+   name="ExplicitFocusTraversal.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-05-27T01:07:25.254171Z"
+   checksum="3bedc3d82aa1bed40a9e7aa1aea4f45a"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:46.000000Z"/>
+<entry
+   committed-rev="45"
+   name="BoardPanel.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-05-26T22:13:26.409739Z"
+   checksum="aa0cdecd7f64aa93d5c5351604f1dac4"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:47.000000Z"/>
+<entry
+   committed-rev="42"
+   name="UpdateChecker.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-05-25T00:34:10.028349Z"
+   checksum="4b61460094003d8b5bc221d4d94ba75e"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:47.000000Z"/>
+<entry
+   committed-rev="49"
+   name="BoardCell.form"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-07-05T17:38:06.676250Z"
+   checksum="d1f5f7e7cefdb33dd427ac31ef06a5f6"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:47.000000Z"/>
+<entry
+   committed-rev="49"
+   name="About.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-07-05T17:38:06.676250Z"
+   checksum="99a911c34b79a0a3f4510fa44f6f8381"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:47.000000Z"/>
+<entry
+   committed-rev="42"
+   name="GameFileFilter.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-05-25T00:34:10.028349Z"
+   checksum="3c7d228be74d4779d3d3b08d968d69ef"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:47.000000Z"/>
+<entry
+   committed-rev="45"
+   name="CellArrowEnum.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-05-26T22:13:26.409739Z"
+   checksum="0c0b4746cd9426598a2a00704cd5e577"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:47.000000Z"/>
+<entry
+   committed-rev="42"
+   name="DictionaryFrame.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-05-25T00:34:10.028349Z"
+   checksum="a2bf578d98b8c59641f274b02eb7f0a9"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:47.000000Z"/>
+<entry
+   committed-rev="42"
+   name="ResultsModel.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-05-25T00:34:10.028349Z"
+   checksum="3579f00a4c7bde720ce8953f1562d557"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:47.000000Z"/>
+<entry
+   committed-rev="15"
+   name="Update.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-04-26T03:50:15.535827Z"
+   checksum="740590280b7b6d4492550f1d54ef53a1"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:47.000000Z"/>
+<entry
+   committed-rev="49"
+   name="Bundle.properties"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-07-05T17:38:06.676250Z"
+   checksum="f25c0121799e60a747c044a8a7d5da40"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:47.000000Z"/>
+<entry
+   committed-rev="49"
+   name="BoardFrame.form"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-07-05T17:38:06.676250Z"
+   checksum="530864cb3aa7ffdca09c76b960031c56"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:47.000000Z"/>
+<entry
+   committed-rev="46"
+   name="TableSorter.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-05-27T01:07:25.254171Z"
+   checksum="0efa3ff9cb10359e412f654e1124ac0f"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:47.000000Z"/>
+<entry
+   committed-rev="45"
+   name="BoardCell.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-05-26T22:13:26.409739Z"
+   checksum="68b80b7ea55aef86918b4612562112e5"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:47.000000Z"/>
+<entry
+   committed-rev="49"
+   name="BoardPanel.form"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-07-05T17:38:06.676250Z"
+   checksum="ec06a2042052cf3cb6d22c26ac2f4da9"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:47.000000Z"/>
+<entry
+   name="icons"
+   kind="dir"/>
+<entry
+   committed-rev="49"
+   name="About.form"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-07-05T17:38:06.676250Z"
+   checksum="e609fc4feedcdf60a37a5a52ad499ee4"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:48.000000Z"/>
+</wc-entries>

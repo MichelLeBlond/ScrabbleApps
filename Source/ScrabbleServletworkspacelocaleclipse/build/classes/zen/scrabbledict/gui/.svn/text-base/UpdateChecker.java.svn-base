@@ -1,0 +1,150 @@
+/**
+ *  This file is part of Scrabble Dictionary.
+ *
+ *  Scrabble Dictionary is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Scrabble Dictionary is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Scrabble Dictionary.  If not, see <http://www.gnu.org/licenses/>.
+ */
+package zen.scrabbledict.gui;
+
+import edu.stanford.ejalbert.BrowserLauncher;
+import java.awt.Component;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.Proxy;
+import java.net.ProxySelector;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.Iterator;
+import java.util.List;
+import javax.swing.JOptionPane;
+
+/**
+ * This class will check for and alert the user to updates.
+ * @author flszen
+ */
+public class UpdateChecker implements Runnable {
+
+    private Component parent;
+    private URI updateURI;
+    private URL updateURL;
+    private static String myVersion = "0.5";
+
+    /**
+     * Constructs the update checker object.
+     * @param parent The parent on which to display a dialog when an update is available.
+     */
+    public UpdateChecker(Component parent) {
+        this.parent = parent;
+
+        // Both the URI and URL are needed, so I might was well catch the exceptions together.
+        try {
+            updateURI = new URI("http://scrabbledict.sf.net/latest.ver");
+            updateURL = new URL("http://scrabbledict.sf.net/latest.ver");
+        } catch (URISyntaxException ex) {
+            System.err.println("URISyntaxException while setting up the update URI: " + ex);
+        } catch (MalformedURLException ex) {
+            System.err.println("MalformedURLException while setting up the update URL: " + ex);
+        }
+    }
+
+    public void run() {
+        // Get the proxies available.
+        ProxySelector proxySelector = ProxySelector.getDefault();
+        List<Proxy> proxies = proxySelector.select(updateURI);
+
+        // Prepare to handle a found update.
+        Update update = null;
+
+        // Try getting the file with each proxy.
+        Iterator<Proxy> iProxy = proxies.iterator();
+        while (iProxy.hasNext() && update == null) {
+            update = getFile(iProxy.next());
+        }
+
+        // Try the direct approach last.
+        if (update == null) {
+            update = getFile(null);
+        }
+
+        // Was an update found.
+        if (update != null) {
+            // TODO: Get the user to download the update.
+            if (JOptionPane.showConfirmDialog(parent, "Version " + update.getUpdateVersion() + " is available for download.\nWould you like to go to the download page?", "Software Update Available", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                try {
+                    BrowserLauncher bl = new BrowserLauncher();
+                    bl.openURLinBrowser(update.getUpdateURL().toString());
+                } catch (Exception ex) {
+                    System.err.println("Exception while launching browser for update: " + ex);
+                    JOptionPane.showMessageDialog(parent, "There was a problem launching your browser.\nPlease navigate to the project at:\n" + update.getUpdateURL().toString(), "Error Launching Browser", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    }
+
+    private Update getFile(Proxy proxy) {
+        Update update = null;   // The Update to be returned.
+
+        // Try to open the URLConnection.
+        URLConnection connection = null;
+        try {
+            if (proxy == null) {
+                connection = updateURL.openConnection();
+            } else {
+                connection = updateURL.openConnection(proxy);
+            }
+        } catch (IOException ex) {
+        // This proxy won't work, or the file's missing.
+        }
+
+        // If the connection is made, try to 
+        if (connection != null) {
+            try {
+                // Get the stream reader.
+                InputStreamReader isr = new InputStreamReader(connection.getInputStream());
+
+                // Prepare the buffer.
+                int length = connection.getContentLength();
+                char[] chars = new char[length];
+
+                // Read the data.
+                isr.read(chars, 0, length);
+
+                // Parse the data.
+                String file = new String(chars);
+                String[] lines = file.split("\n");
+
+                // Does the file contain at least two lines?
+                if (lines.length >= 2) {
+                    String version = file.split("\n")[0];
+                    String url = file.split("\n")[1];
+
+                    if (!version.equals(myVersion)) {
+                        try {
+                            update = new Update(version, new URL(url));
+                        } catch (MalformedURLException ex) {
+                            System.err.println("The update url is malformed: " + ex);
+                        }
+                    }
+                }
+            } catch (IOException ex) {
+            // This proxy won't work, or the file's missing.
+            }
+        }
+
+        // Return the update.
+        return update;
+    }
+}

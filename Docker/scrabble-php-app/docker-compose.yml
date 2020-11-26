@@ -1,0 +1,17 @@
+version: '3.3'
+
+services:
+   db:
+     image: michelleblond/scrabbledb
+     restart: always
+
+   phpadmin:
+     depends_on:
+       - db
+     image: michelleblond/scrabble-php-app 
+     ports:
+       - "80:80"
+     restart: always
+     
+volumes:
+    db_data: {}

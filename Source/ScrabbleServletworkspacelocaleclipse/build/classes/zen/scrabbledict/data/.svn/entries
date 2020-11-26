@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="46"
+   name=""
+   committed-date="2008-05-27T01:07:25.254171Z"
+   url="https://scrabbledict.svn.sourceforge.net/svnroot/scrabbledict/trunk/ScrabbleDictionary/src/zen/scrabbledict/data"
+   last-author="flszen"
+   kind="dir"
+   uuid="1187bcd6-1343-0410-bac2-c26dee253c89"
+   repos="https://scrabbledict.svn.sourceforge.net/svnroot/scrabbledict"
+   prop-time="2008-08-19T01:19:48.000000Z"
+   revision="49"/>
+<entry
+   committed-rev="15"
+   name="Square.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-04-26T03:50:15.535827Z"
+   checksum="e9a7690bec815fc2f7c68a8f1c3a0fe1"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:48.000000Z"/>
+<entry
+   committed-rev="33"
+   name="ScoreComparator.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-05-10T13:01:17.984821Z"
+   checksum="9ba6818e28897e8a9d042650ef88e991"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:48.000000Z"/>
+<entry
+   committed-rev="15"
+   name="LogicListener.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-04-26T03:50:15.535827Z"
+   checksum="961458ce4c2b413866160ca74bb94690"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:48.000000Z"/>
+<entry
+   committed-rev="21"
+   name="ScannerProvider.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-04-26T22:35:15.800756Z"
+   checksum="b99adb5c10637c96c87e225ff333f71f"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:48.000000Z"/>
+<entry
+   committed-rev="46"
+   name="Dictionary.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-05-27T01:07:25.254171Z"
+   checksum="ba43dbe6e914332836abc11d6800957b"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:48.000000Z"/>
+<entry
+   committed-rev="33"
+   name="ScoreComparisonType.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-05-10T13:01:17.984821Z"
+   checksum="5183b0ff8f03e04e5716822f4e7d7e81"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:48.000000Z"/>
+<entry
+   committed-rev="46"
+   name="WordsCollection.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-05-27T01:07:25.254171Z"
+   checksum="3f54bc8450095305f880ca66a2097ec4"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:48.000000Z"/>
+<entry
+   committed-rev="46"
+   name="Word.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-05-27T01:07:25.254171Z"
+   checksum="0efb430ff7bc40e12859efd149e588f8"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:48.000000Z"/>
+<entry
+   committed-rev="26"
+   name="DictionaryListener.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-05-03T02:11:40.749242Z"
+   checksum="857b5daed44a9bff6249a7b4311589f3"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:48.000000Z"/>
+<entry
+   committed-rev="46"
+   name="AbstractBoard.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-05-27T01:07:25.254171Z"
+   checksum="987d67505e2a278ba726964d7c54fcb3"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:48.000000Z"/>
+<entry
+   committed-rev="15"
+   name="WordDirection.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-04-26T03:50:15.535827Z"
+   checksum="1085dfc1e6afbe6465d97f19bdb88c19"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:48.000000Z"/>
+<entry
+   committed-rev="46"
+   name="EnhancedBoard.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-05-27T01:07:25.254171Z"
+   checksum="b65da7328798b3907443fe616c400361"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:48.000000Z"/>
+<entry
+   committed-rev="46"
+   name="SerializableBoard.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-05-27T01:07:25.254171Z"
+   checksum="3014f114b386294cf488495d0da27db2"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:48.000000Z"/>
+<entry
+   committed-rev="15"
+   name="Tiles.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-04-26T03:50:15.535827Z"
+   checksum="98f48e121ccbf77e6e05d06d3ed90eca"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:48.000000Z"/>
+<entry
+   committed-rev="15"
+   name="WorkUnit.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-04-26T03:50:15.535827Z"
+   checksum="2d3d83ef135b124b0bf16c83cbcf9dd5"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:48.000000Z"/>
+<entry
+   committed-rev="46"
+   name="WordMatch.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-05-27T01:07:25.254171Z"
+   checksum="0159211197f3f41bdc8551eba95c4bec"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:48.000000Z"/>
+<entry
+   committed-rev="40"
+   name="Scanner.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-05-24T23:46:56.388347Z"
+   checksum="034a40a4ca01ebde52a2d7ce576c07fc"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:48.000000Z"/>
+<entry
+   committed-rev="46"
+   name="BasicBoard.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-05-27T01:07:25.254171Z"
+   checksum="c8f928bd025b1bb181c4e115de6a42fc"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:48.000000Z"/>
+<entry
+   committed-rev="46"
+   name="Logic.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-05-27T01:07:25.254171Z"
+   checksum="651cf708d10b0ea02c801281f908e324"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:48.000000Z"/>
+<entry
+   committed-rev="15"
+   name="BoardListener.java"
+   text-time="2008-08-19T01:19:48.000000Z"
+   committed-date="2008-04-26T03:50:15.535827Z"
+   checksum="18fab2c5b9d4c28df3cba981bcfbdba0"
+   last-author="flszen"
+   kind="file"
+   prop-time="2008-08-19T01:19:48.000000Z"/>
+</wc-entries>

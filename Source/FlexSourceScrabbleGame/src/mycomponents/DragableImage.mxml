@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BindableImage xmlns="mycomponents.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+ creationComplete="init()">
+	<mx:Script>
+		<![CDATA[
+		import mx.controls.Alert;
+		import mx.core.DragSource;
+        import mx.events.DragEvent;
+        import mx.managers.DragManager;
+        import mycomponents.BindableImage;
+	    public var xOff:Number;
+        public var yOff:Number;
+		private function init():void{
+			this.addEventListener(MouseEvent.MOUSE_MOVE ,myImageCCHandler);
+		}
+	    private function myImageCCHandler(event:Event):void 
+            {
+            
+            var img:BindableImage = event.currentTarget as BindableImage
+            	img.addEventListener(MouseEvent.MOUSE_DOWN, tbMouseMoveHandler);
+            }
+            
+        private function tbMouseMoveHandler(event:MouseEvent):void 
+            {
+                var dragInitiator:BindableImage=BindableImage(event.currentTarget);
+                var ds:DragSource = new DragSource();
+                ds.addData(event.currentTarget, 'image'); 
+               
+                
+        	    // Update the xOff and yOff variables to show the
+            	// current mouse location
+            	xOff = event.currentTarget.mouseX;
+                yOff = event.currentTarget.mouseY;  
+                var dragProxy:BindableImage = new BindableImage();
+	            dragProxy.width = this.width;
+	            dragProxy.height =this.width;
+				dragProxy.source = event.currentTarget.source;
+                // Initiate d&d. 
+                DragManager.doDrag(dragInitiator, ds, event,dragProxy );                    
+            }            
+
+			
+		]]>
+	</mx:Script>
+</BindableImage>

@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<!-- itemRenderers\htlist\myComponents\Thumbnail.mxml -->
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+    horizontalAlign="center"
+    verticalGap="0" borderStyle="none" backgroundColor="white" >
+
+    <mx:Image id="image" width="60" height="60" source="{data.image}"/>
+   <!-- <mx:Label text="{data.name}" width="120" textAlign="center"/>
+    <mx:Label text="${data.price}" fontWeight="bold"/> -->
+</mx:VBox>

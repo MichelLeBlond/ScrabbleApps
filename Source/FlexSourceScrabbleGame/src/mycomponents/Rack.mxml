@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" creationComplete="init()"
+	   dragEnter="thisDragEnter(event)" dragDrop="thisDragDrop(event)" backgroundImage="@Embed('assets/rack.jpg')" width ="330" height="50"
+	   horizontalScrollPolicy="off"  verticalScrollPolicy="off"  borderStyle="solid"   maxHeight="50"
+       maxWidth="330">
+	<mx:Script>
+		<![CDATA[
+		import mx.controls.Alert;
+		import mx.core.DragSource;
+        import mx.events.DragEvent;
+        import mx.managers.DragManager;
+        import mycomponents.DragableImage;
+			private function init():void {
+				
+			}
+			private function thisDragEnter(event:DragEvent):void{
+		    DragManager.acceptDragDrop(Rack(event.target));
+					}
+			private function thisDragDrop(event:DragEvent):void{
+			var drag:DragableImage = event.dragInitiator as DragableImage;
+			event.dragInitiator.x = event.currentTarget.mouseX - drag.xOff;
+			event.dragInitiator.y = event.currentTarget.mouseY - drag.yOff;
+			var x:int = event.dragInitiator.x;
+			
+			if(x < 2 ) {
+				event.dragInitiator.x = 2;
+			}
+			
+			if(x > 290 ) {
+				event.dragInitiator.x = 290;
+			}
+			event.dragInitiator.y = 2;
+			if(event.dragInitiator.parent != this){
+			addChild(event.dragInitiator as DragableImage);
+			drag.src="other";
+			}
+			else{
+			drag.src="rack";
+			}
+		    drag.oldx = x;
+			drag.oldy = 2;
+			}
+			
+			
+			
+			
+		]]>
+		</mx:Script>
+</mx:Canvas>

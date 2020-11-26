@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" 
+		width="41" height="41" maxWidth="41" maxHeight="41"
+        borderStyle="solid"   verticalScrollPolicy="off" horizontalScrollPolicy="off"
+        backgroundColor="#DDDDDD"  alpha ="0"  initialize="init()">
+	<mx:Script>
+		<![CDATA[
+			import mx.events.DragEvent;
+			private function init():void {
+				this.addEventListener(DragEvent.DRAG_ENTER,this.parentApplication.doDragEnter);
+		        this.addEventListener(DragEvent.DRAG_DROP,this.parentApplication.doDragDrop);
+			}
+		]]>
+	</mx:Script>
+		
+	
+</mx:Canvas>
+
